@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relatively"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rsta"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-4307565756625227/5708749196">
+    </com.google.android.gms.ads.AdView>
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="0dp"
+            android:gravity="center"
+            android:text="Score : 0 Wrong: 0"
+            android:textColor="#f5eeee"
+            android:textSize="25.0sp"
+            android:textStyle="bold"
+
+            android:layout_weight="0.09" />
+
+        <TextView
+            android:id="@+id/timers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="0dp"
+            android:gravity="center"
+            android:text="00:00:49"
+            android:textColor="#1d1c1c"
+            android:textSize="25.0sp"
+            android:textStyle="bold"
+            android:background="#9a9c9e"
+            android:layout_weight="0.07"
+            android:shadowColor="#ad7e7e" />
+
+        <TextView
+            android:id="@+id/txtQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="15*2*1-1"
+            android:textColor="#ffffff"
+            android:textSize="35.0sp"
+            android:textStyle="bold"
+            android:layout_weight="0.38"
+            android:maxLines="3"
+            android:minLines="3"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:outlineProvider="background" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="7dp"
+            android:background="#fff"
+            android:gravity="center"
+            android:text="29"
+            android:textColor="#000000"
+            android:textSize="25.0sp"
+            android:singleLine="true"
+            android:layout_gravity="top|left|bottom|right" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="7dp"
+            android:background="#fff"
+            android:gravity="center"
+            android:text="30"
+            android:textColor="#000000"
+            android:textSize="25.0sp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="7dp"
+            android:background="#fff"
+            android:gravity="center"
+            android:text="32"
+            android:textColor="#000000"
+            android:textSize="25.0sp" />
+
+    </LinearLayout>
+
+
+
+
