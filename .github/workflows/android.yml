@@ -77,8 +77,12 @@ jobs:
         run: chmod +x Game/gradlew
 
       - name: Decode keystore
+        env:
+          KEYSTORE_FILE: ${{ secrets.KEYSTORE_FILE }}
         run: |
-          echo "${{ secrets.KEYSTORE_FILE }}" | base64 --decode > Game/app/keystore.jks
+          if [ -n "$KEYSTORE_FILE" ]; then
+            echo "$KEYSTORE_FILE" | base64 --decode > Game/app/keystore.jks
+          fi
 
       - name: Build release AAB
         env:
