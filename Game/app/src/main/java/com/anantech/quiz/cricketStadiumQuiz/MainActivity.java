@@ -1,6 +1,6 @@
 package com.anantech.quiz.cricketStadiumQuiz;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.google.android.gms.ads.AdRequest;
@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
       //  @drawable/background
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-4307565756625227~2383839591");
+        MobileAds.initialize(this, initializationStatus -> {});
 
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();

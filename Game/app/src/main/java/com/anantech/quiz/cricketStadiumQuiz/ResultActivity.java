@@ -2,130 +2,95 @@ package com.anantech.quiz.cricketStadiumQuiz;
 
 /**
  * Created by Sandeep on 18-06-2016.
+ * Updated 2024: Migrated to AndroidX, new InterstitialAd API.
  */
-import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
-
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
+public class ResultActivity extends AppCompatActivity {
 
-public class ResultActivity extends Activity {
-    InterstitialAd mInterstitialAd;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-
-    Button button;
+    private InterstitialAd mInterstitialAd;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-4307565756625227~2383839591");
-        button = (Button) findViewById(R.id.btn);
-        AdView mAdView = (AdView) findViewById(R.id.adView);
+
+        button = findViewById(R.id.btn);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-4307565756625227/2400735594");
 
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                requestNewInterstitial();
-                playagain(button.getRootView());
-            }
-        });
+        loadInterstitialAd();
 
-        requestNewInterstitial();
-
-        TextView textResult = (TextView) findViewById(R.id.textResult);
-
+        TextView textResult = findViewById(R.id.textResult);
         Bundle b = getIntent().getExtras();
+        int score = (b != null) ? b.getInt("score") : 0;
+        textResult.setText("Your score is " + score + ". Thanks for playing!");
 
-        int score = b.getInt("score");
-
-        textResult.setText("Your score is " + " " + score + ". Thanks for playing.");
-
-
-
-
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                loadInterstitial();
-               /* if (mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                } else {
-                    playagain(button.getRootView());
-                }*/
-
-                // passing the button text to other method
-                // to check whether the anser is correct or not
-                // same for all three buttons
-
-            }
-        });
-
-
+        button.setOnClickListener(v -> showInterstitialOrPlayAgain());
     }
 
-    private void loadInterstitial() {
-        int i=0;
-        while(!mInterstitialAd.isLoaded() && i<10000){
-i++;
-        }
-        mInterstitialAd.show();
-    }
-
-    private void requestNewInterstitial() {
+    private void loadInterstitialAd() {
         AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(this, "ca-app-pub-4307565756625227/2400735594", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                    }
 
-        mInterstitialAd.loadAd(adRequest);
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mInterstitialAd = null;
+                    }
+                });
     }
 
-    public void playagain(View o) {
+    private void showInterstitialOrPlayAgain() {
+        if (mInterstitialAd != null) {
+            mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    mInterstitialAd = null;
+                    playAgain();
+                }
 
-        Intent intent = new Intent(this, QuestionActivity.class);
-
-        startActivity(intent);
-
+                @Override
+                public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                    mInterstitialAd = null;
+                    playAgain();
+                }
+            });
+            mInterstitialAd.show(this);
+        } else {
+            playAgain();
+        }
     }
 
-    public void closeApplication() {
-
-        onStop();
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-
-
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-
-
+    private void playAgain() {
+        try {
+            if (!isFinishing()) {
+                Intent intent = new Intent(this, QuestionActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        } catch (IllegalStateException ignored) {
+        }
     }
 }

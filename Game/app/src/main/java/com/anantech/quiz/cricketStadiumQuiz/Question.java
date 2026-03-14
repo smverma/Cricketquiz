@@ -3,9 +3,8 @@ package com.anantech.quiz.cricketStadiumQuiz;
 /**
  * Created by Sandeep on 18-06-2016.
  */
-import android.app.Activity;
 
-public class Question extends Activity {
+public class Question {
 
     private int ID;
     private String QUESTION;
