@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class QuizHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // Database Name
     private static final String DATABASE_NAME = "mathsone";
     // tasks table name
@@ -108,7 +108,7 @@ public class QuizHelper extends SQLiteOpenHelper {
         this.addQuestion(q30);
         Question q31 = new Question("Premadasa Stadium is located in which city", "Colombo", "Candy", "Bulawayo", "Colombo");
         this.addQuestion(q31);
-        Question q32 = new Question("Zahur Ahmed Chowdhury Stadium is located in which city", "Chittagong", "Calcutta", "Dhaka", "Kingston");
+        Question q32 = new Question("Zahur Ahmed Chowdhury Stadium is located in which city", "Chittagong", "Calcutta", "Dhaka", "Chittagong");
         this.addQuestion(q32);
 
         Question q33 = new Question("Sir Vivian Richards Stadium is located in which city", "Antigua", "Saint Lucia", "Kingston", "Antigua");
@@ -119,6 +119,28 @@ public class QuizHelper extends SQLiteOpenHelper {
         this.addQuestion(q35);
         Question q36 = new Question("Lal Bahadur Shastri Stadium is located in which city", "Hyderabad", "Bhopal", "Jaipur", "Hyderabad");
         this.addQuestion(q36);
+
+        // Modern questions added in version 2
+        Question q37 = new Question("Narendra Modi Stadium (world's largest cricket stadium) is located in which city", "Ahmedabad", "Mumbai", "Surat", "Ahmedabad");
+        this.addQuestion(q37);
+        Question q38 = new Question("Which team won the ICC T20 World Cup 2024?", "India", "South Africa", "Australia", "India");
+        this.addQuestion(q38);
+        Question q39 = new Question("Who holds the record for the most runs in T20 International cricket?", "Virat Kohli", "Rohit Sharma", "Martin Guptill", "Virat Kohli");
+        this.addQuestion(q39);
+        Question q40 = new Question("The IPL franchise 'Chennai Super Kings' is based in which city?", "Chennai", "Hyderabad", "Bangalore", "Chennai");
+        this.addQuestion(q40);
+        Question q41 = new Question("The IPL franchise 'Mumbai Indians' has won the IPL how many times?", "5", "4", "6", "5");
+        this.addQuestion(q41);
+        Question q42 = new Question("Arun Jaitley Stadium (formerly Feroz Shah Kotla) is located in which city?", "Mumbai", "Delhi", "Jaipur", "Delhi");
+        this.addQuestion(q42);
+        Question q43 = new Question("Who was the captain of India when they won the ICC T20 World Cup 2024?", "Rohit Sharma", "Virat Kohli", "Hardik Pandya", "Rohit Sharma");
+        this.addQuestion(q43);
+        Question q44 = new Question("The Ekana Cricket Stadium is located in which city?", "Lucknow", "Kanpur", "Agra", "Lucknow");
+        this.addQuestion(q44);
+        Question q45 = new Question("Mullanpur Cricket Stadium (new) is located in which state?", "Punjab", "Haryana", "Rajasthan", "Punjab");
+        this.addQuestion(q45);
+        Question q46 = new Question("Which country hosted the ICC Men's ODI World Cup 2023?", "India", "Australia", "England", "India");
+        this.addQuestion(q46);
 
 
 
@@ -167,6 +189,7 @@ public class QuizHelper extends SQLiteOpenHelper {
                 quesList.add(quest);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         // return quest list
         return quesList;
     }
