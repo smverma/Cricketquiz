@@ -11,10 +11,25 @@ android {
         versionCode 5
         versionName "5.0"
     }
+    signingConfigs {
+        release {
+            def keystoreFile = file("keystore.jks")
+            def keystorePassword = System.getenv("KEY_STORE_PASSWORD")
+            def keystoreAlias = System.getenv("KEY_ALIAS")
+            def keystoreAliasPassword = System.getenv("KEY_PASSWORD")
+            if (keystoreFile.exists() && keystorePassword && keystoreAlias && keystoreAliasPassword) {
+                storeFile keystoreFile
+                storePassword keystorePassword
+                keyAlias keystoreAlias
+                keyPassword keystoreAliasPassword
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
